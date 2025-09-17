@@ -1,0 +1,8 @@
+requests
+torch
+PIL
+open_clip
+tqdm
+numpy
+datasets
+matplotlib
