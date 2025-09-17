@@ -121,4 +121,8 @@ Accordingly, we release MDSEval under the Apache 2.0 License.
 ---
 If you found the benchmark useful, please consider citing our work.
 
+## Other
+---
+This is an intern project which has ended. Therefore, there will be no regular updates for this repository.
+
 
