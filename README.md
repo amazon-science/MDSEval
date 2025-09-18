@@ -23,7 +23,14 @@ To ensure data quality and diversity, we introduce a novel filtering framework, 
 Our contributions include:
 - The first formalization of key evaluation dimensions specific to MDS  
 - A high-quality benchmark dataset for robust evaluation  
-- A comprehensive assessment of state-of-the-art evaluation methods, showing their limitations in distinguishing between summaries from advanced MLLMs and their vulnerability to various biases  
+- A comprehensive assessment of state-of-the-art evaluation methods, showing their limitations in distinguishing between summaries from advanced MLLMs and their vulnerability to various biases
+
+## Dependencies
+---
+Besides the `requirements.txt`, we additionaly depends on:
+* The [google-research](https://github.com/google-research/google-research) with install command in `prepare_dialog_data.sh`
+* The external images provided in `MDSEval_annotations.json` with download script in `prepare_image_data.sh`
+* The model checkpoint [ViT-H-14-378-quickgelu](https://huggingface.co/immich-app/ViT-H-14-378-quickgelu__dfn5b) loaded by `meki.py`
 
 ## Download the Dialogue and Image Data
 ---
@@ -124,5 +131,7 @@ If you found the benchmark useful, please consider citing our work.
 ## Other
 ---
 This is an intern project which has ended. Therefore, there will be no regular updates for this repository.
+
+
 
 
