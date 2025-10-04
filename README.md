@@ -100,7 +100,7 @@ Next, to identify **Exclusive Key Information (EKI)** — crucial content unique
 <img src="logo/equ2.png" width="350">
 
 
-which quantifies the extent of exclusive image-based key information. Similarly, we compute $\operatorname{EKI}(T|I; S)$ for textual exclusivity.
+which quantifies the extent of exclusive image-based key information. Similarly, we compute $EKI(T|I; S)$ for textual exclusivity.
 
 Finally, the MEKI score aggregates both components:
 <!-- \[
