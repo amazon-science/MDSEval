@@ -4,7 +4,7 @@
 
 **Updates: Our work has been accepted by EMNLP 2025 🎉**
 
-This is the official repository for the **MDSEval** benchmark. It includes all human annotations, benchmark data, and the implementation of our newly proposed data filtering framework, **Mutually Exclusive Key Information (MEKI)**. MEKI is designed to filter high-quality multimodal data by ensuring that each modality contributes unique information.  
+This is the official repository for the [**MDSEval**](https://arxiv.org/abs/2510.01659) benchmark. It includes all human annotations, benchmark data, and the implementation of our newly proposed data filtering framework, **Mutually Exclusive Key Information (MEKI)**. MEKI is designed to filter high-quality multimodal data by ensuring that each modality contributes unique information.  
 
 ⚠️ **Note:** MDSEval is an **evaluation benchmark**. The data provided here should **not** be used for training NLP models.
 
@@ -23,14 +23,7 @@ To ensure data quality and diversity, we introduce a novel filtering framework, 
 Our contributions include:
 - The first formalization of key evaluation dimensions specific to MDS  
 - A high-quality benchmark dataset for robust evaluation  
-- A comprehensive assessment of state-of-the-art evaluation methods, showing their limitations in distinguishing between summaries from advanced MLLMs and their vulnerability to various biases
-
-## Dependencies
----
-Besides the `requirements.txt`, we additionaly depends on:
-* The [google-research](https://github.com/google-research/google-research) with install command in `prepare_dialog_data.sh`
-* The external images provided in `MDSEval_annotations.json` with download script in `prepare_image_data.sh`
-* The model checkpoint [ViT-H-14-378-quickgelu](https://huggingface.co/immich-app/ViT-H-14-378-quickgelu__dfn5b) loaded by `meki.py`
+- A comprehensive assessment of state-of-the-art evaluation methods, showing their limitations in distinguishing between summaries from advanced MLLMs and their vulnerability to various biases  
 
 ## Download the Dialogue and Image Data
 ---
@@ -88,24 +81,34 @@ To ensure the dataset is sufficiently challenging for multimodal summarization, 
 We embed both the image and textual dialogue into a **shared semantic space**, e.g. using the CLIP model, denoted as vectors  $I\in \mathbb{R}^N$ and $T \in \mathbb{R}^N$. $N$ is the embedding dimension. Since CLIP embeddings are unit-normalized, we maintain this normalization for consistency.
 
 To measure **Exclusive Information (EI)** in $I$ that is not present in $T$, we compute the orthogonal component of $I$ relative to $T$:
-\[
+<!-- \[
    % \operatorname{EI}(I|T) = 
    I_T^\perp = I - \operatorname{Proj}_T(I) = I -  \frac{\langle I, T\rangle}{\langle T, T\rangle} T,
-\]
+\] -->
+
+<img src="logo/equ1.png" width="400">
+
 where $\langle \cdot , \cdot \rangle$ denote the dot product.
 
 Next, to identify **Exclusive Key Information (EKI)** — crucial content uniquely conveyed by one modality — we first generate a pseudo-summary $S$, which extracts essential dialogue and image details. This serves as a reference proxy rather than a precise summary, helping distinguish key information. We embed and normalize $S$ in the CLIP space and compute:
-\[
+<!-- \[
   \operatorname{EKI}(I|T; S) =  
   % \| \operatorname{Proj}_S(I_T^\perp) \| = 
   \left\| \frac{\langle I_T^\perp, S\rangle}{\langle S, S\rangle} S \right\|
-\]
-which quantifies the extent of exclusive image-based key information. Similarly, we compute $\operatorname{EKI}(T|I; S)$ for textual exclusivity.
+\] -->
+
+<img src="logo/equ2.png" width="350">
+
+
+which quantifies the extent of exclusive image-based key information. Similarly, we compute $EKI(T|I; S)$ for textual exclusivity.
 
 Finally, the MEKI score aggregates both components:
-\[
+<!-- \[
 \operatorname{MEKI}(I, T; S) = \lambda \operatorname{EKI}(I \mid T; S)  + (1-\lambda)\operatorname{EKI}(T \mid I; S)
-\]
+\] -->
+
+<img src="logo/equ3.png" width="600">
+
 where $\lambda=0.3$, chosen to balance the typically higher magnitude of the exclusivity term in text-based information, ensuring that the average magnitudes of both terms are approximately equal. 
 
 
@@ -128,10 +131,15 @@ Accordingly, we release MDSEval under the Apache 2.0 License.
 ---
 If you found the benchmark useful, please consider citing our work.
 
-## Other
----
-This is an intern project which has ended. Therefore, there will be no regular updates for this repository.
 
-
-
-
+```
+@misc{liu2025mdsevalmetaevaluationbenchmarkmultimodal,
+      title={MDSEval: A Meta-Evaluation Benchmark for Multimodal Dialogue Summarization}, 
+      author={Yinhong Liu and Jianfeng He and Hang Su and Ruixue Lian and Yi Nian and Jake Vincent and Srikanth Vishnubhotla and Robinson Piramuthu and Saab Mansour},
+      year={2025},
+      eprint={2510.01659},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2510.01659}, 
+}
+```
